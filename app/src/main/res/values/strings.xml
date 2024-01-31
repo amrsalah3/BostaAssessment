@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BostaAssessment</string>
+    <string name="empty_content">Empty content</string>
+    <!-- Profile screen -->
+    <string name="error_loading_profile">Error while loading profile</string>
+    <string name="no_albums">No albums found for this user</string>
+    <!-- Album screen -->
+    <string name="error_loading_album">Error while loading the album</string>
+</resources>
