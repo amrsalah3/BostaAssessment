@@ -3,7 +3,8 @@
 ### Requirements
 <img src="https://github.com/amrsalah3/BostaAssessment/assets/52531091/86b28a05-deff-4bae-9544-b21971dc7310" width=300>
 
-### Solution Demo
+### Solution
+[](https://github.com/amrsalah3/BostaAssessment/assets/52531091/7cb8199f-219f-40e0-8923-03401c4010e6)
 
 ### Architecture
 - MVVM is applied with Clean Architecture principles below:
