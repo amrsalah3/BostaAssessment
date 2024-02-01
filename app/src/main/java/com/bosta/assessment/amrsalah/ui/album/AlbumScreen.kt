@@ -1,6 +1,7 @@
 package com.bosta.assessment.amrsalah.ui.album
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,20 +54,33 @@ import com.bosta.assessment.amrsalah.ui.theme.BostaAssessmentTheme
 @Composable
 fun AlbumRoute(viewModel: AlbumViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val selectedPhotoUrl = rememberSaveable { mutableStateOf<String?>(null) }
+
     when (val result = uiState) {
         Result.Loading -> LoadingContent()
 
-        is Result.Success -> AlbumScreen(
-            album = result.data,
-            onSearch = viewModel::filterPhotosByTitle,
-        )
+        is Result.Success -> {
+            if (selectedPhotoUrl.value == null) {
+                AlbumScreen(
+                    album = result.data,
+                    onSearch = viewModel::filterPhotosByTitle,
+                    onPhotoClick = { selectedPhotoUrl.value = it.url }
+                )
+            } else {
+                PhotoViewer(selectedPhotoUrl)
+            }
+        }
 
         is Result.Failure -> EmptyContent(R.string.error_loading_album)
     }
 }
 
 @Composable
-fun AlbumScreen(album: Album, onSearch: (String) -> Unit) {
+fun AlbumScreen(
+    album: Album,
+    onSearch: (String) -> Unit,
+    onPhotoClick: (Photo) -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
@@ -97,9 +111,12 @@ fun AlbumScreen(album: Album, onSearch: (String) -> Unit) {
             modifier = Modifier.fillMaxSize()
         ) {
             items(album.filteredPhotos.size) { index ->
+                val photo = album.filteredPhotos[index]
                 NetworkImage(
-                    photoUrl = album.filteredPhotos[index].thumbnailUrl,
-                    modifier = Modifier.aspectRatio(1.4f)
+                    photoUrl = photo.thumbnailUrl,
+                    modifier = Modifier
+                        .aspectRatio(1.4f)
+                        .clickable { onPhotoClick(photo) }
                 )
             }
         }
@@ -181,7 +198,8 @@ fun AlbumScreenPreview() {
                         )
                     }
                 ),
-                onSearch = {}
+                onSearch = {},
+                onPhotoClick = {}
             )
         }
     }
