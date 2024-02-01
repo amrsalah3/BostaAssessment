@@ -21,17 +21,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     BostaAssessmentNavGraph()
-                    /*AlbumScreen(
-                        albumTitle = "quidem molestiae enim",
-                        photos = List(30) {
-                            Photo(
-                                id = 0,
-                                title = "photo title",
-                                url = "https://via.placeholder.com/600/92c952",
-                                thumbnailUrl = "https://via.placeholder.com/150/92c952"
-                            )
-                        }
-                    )*/
                 }
             }
         }
