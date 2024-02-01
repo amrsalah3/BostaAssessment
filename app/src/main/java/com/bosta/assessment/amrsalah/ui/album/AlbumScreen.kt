@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -113,7 +114,7 @@ fun AlbumScreen(
             items(album.filteredPhotos.size) { index ->
                 val photo = album.filteredPhotos[index]
                 NetworkImage(
-                    photoUrl = photo.thumbnailUrl,
+                    photo = photo,
                     modifier = Modifier
                         .aspectRatio(1.4f)
                         .clickable { onPhotoClick(photo) }
@@ -155,7 +156,7 @@ fun SearchBar(onSearch: (String) -> Unit, modifier: Modifier = Modifier) {
             decorationBox = { innerTextField ->
                 Box {
                     if (query.isEmpty()) {
-                        Text(text = "Search in images..", color = Color.Gray)
+                        Text(text = stringResource(R.string.searchbar_hint), color = Color.Gray)
                     }
                     innerTextField()
                 }
@@ -168,13 +169,13 @@ fun SearchBar(onSearch: (String) -> Unit, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun NetworkImage(photoUrl: String, modifier: Modifier = Modifier) {
+fun NetworkImage(photo: Photo, modifier: Modifier = Modifier) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
-            .data(photoUrl)
+            .data(photo.url)
             .crossfade(500)
             .build(),
-        contentDescription = null,
+        contentDescription = photo.title,
         contentScale = ContentScale.Crop,
         modifier = modifier
     )

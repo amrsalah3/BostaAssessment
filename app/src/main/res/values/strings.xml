@@ -4,6 +4,11 @@
     <!-- Profile screen -->
     <string name="error_loading_profile">Error while loading profile</string>
     <string name="no_albums">No albums found for this user</string>
+    <string name="profile_headline">Profile</string>
+    <string name="albums_headline">My Albums</string>
     <!-- Album screen -->
     <string name="error_loading_album">Error while loading the album</string>
+    <string name="searchbar_hint">Search in images..</string>
+    <string name="content_desc_share_photo">Share photo</string>
+
 </resources>
